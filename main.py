@@ -22,4 +22,5 @@ for i, produto in enumerate(lista_filtrada, start=1):
     print(f"{i}. {produto['titulo']} | R${produto['price']}")
 print("="*100)
 
+print()
 # lista_filtrada = [pessoa for pessoa in lista_de_pessoas if all(nome not in pessoa['nome'].split() for nome in nomes_a_eliminar)]

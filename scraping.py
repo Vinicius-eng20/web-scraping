@@ -50,6 +50,8 @@ class Scraping:
                 print("Nenhuma próxima página encontrada.")
 
         return lista_json
+    
+    print()
 
 
 
