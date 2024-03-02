@@ -1,12 +1,13 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+from datetime import date
 
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0'}
 
 # Função para obter as URLs das páginas seguintes
-def get_next_page_url(soup):
-    next_button = soup.find('li', class_='andes-pagination__button--next')
+def get_next_page_url(soup, classe):
+    next_button = soup.find('li', class_=classe)
     if next_button:
         link_next_page = next_button.find('a')
         if link_next_page:
@@ -31,17 +32,21 @@ class Scraping:
                 price_text = produto.find('span', class_='andes-money-amount ui-search-price__part ui-search-price__part--medium andes-money-amount--cents-superscript')
                 if price_text:
                     price_text = price_text.text.strip()
-                    price = re.sub(r'[^0-9,]', '', price_text).replace(',', '.')
+                    price = re.sub(r'[^0-9,]', '', price_text)
                 link = produto.find('a', class_='ui-search-item__group__element ui-search-link__title-card ui-search-link')['href']
 
                 lista_json.append({
-                    'titulo': titulo,
+                    'LocalVenda': 'Mercado Livre', 
+                    'marca': '',
                     'price': price,
+                    'data': date.today().strftime(("%d/%m/%y")),
+                    'idade': '',
+                    'titulo': titulo,
                     'link': link,
                 })
             
             # Obtém a URL da próxima página
-            current_url = get_next_page_url(soup)
+            current_url = get_next_page_url(soup, 'andes-pagination__button--next')
             
             # Imprime a URL da próxima página (ou pode fazer algo mais com ela)
             if current_url:
@@ -51,7 +56,7 @@ class Scraping:
 
         return lista_json
     
-    print()
+
 
 
 
