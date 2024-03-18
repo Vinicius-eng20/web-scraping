@@ -94,7 +94,7 @@ class Scraping:
                     'data': date.today().strftime(("%d/%m/%y")),
                     'idade': '',
                     'titulo': descricao,
-                    'link': link,
+                    'link': 'https://www.kabum.com.br' + link,
                 })
             print(url_pag)
 
